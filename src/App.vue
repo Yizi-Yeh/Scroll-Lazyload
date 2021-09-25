@@ -1,26 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+<div id="app">
+  <TitleBar/>
+    <RepoList/>
+</div>
+
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import TitleBar from "./components/TitleBar.vue";
+import RepoList from "./components/RepoList.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    TitleBar,
+    RepoList
   },
+  setup(){
+    return{
+
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html,body{
+  background-color: #ddd;
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#app{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
