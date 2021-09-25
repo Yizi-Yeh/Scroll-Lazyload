@@ -1,12 +1,20 @@
 <template>
   <div id="title-bar">
     <img class="user-photo" src="../assets/notFound.jpg" alt="" />
-    <h1>Yizi</h1>
+    <h1>{{userTitle}}</h1>
   </div>
 </template>
 
 <script>
-export default {};
+import { inject } from "vue";
+export default {
+  setup() {
+    const useStore = inject("mapStore");
+    console.log(useStore);
+    const { userTitle } = useStore;
+    return { userTitle };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
