@@ -8,22 +8,30 @@
         <p>10</p>
       </div>
     </div>
+    <h1 v-show="!isLoad">Loading...</h1>
   </div>
 </template>
 
 <script>
-import { watch } from '@vue/runtime-core';
+import { onMounted, watch } from "@vue/runtime-core";
 import { useScrollDown } from "../composition-api/useScrollDown";
+import { useFetchData } from "../composition-api/useFetchData.js";
 export default {
   setup() {
     const { isDown } = useScrollDown();
+    const { init, isLoad, next } = useFetchData();
 
-    watch(isDown,(newValue)=>{
-       if(!newValue) return
-       console.log(newValue)
+    watch(isDown, (newValue) => {
+      if (!newValue) return;
+      next()
+      console.log(newValue);
+    });
+
+    onMounted(()=>{
+        init()
     })
-    
-    return {};
+
+    return {isLoad};
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="title-bar">
     <img class="user-photo" src="../assets/notFound.jpg" alt="" />
-    <h1>{{userTitle}}</h1>
+    <h1>{{store.userTitle}}</h1>
   </div>
 </template>
 
@@ -11,8 +11,8 @@ export default {
   setup() {
     const useStore = inject("mapStore");
     console.log(useStore);
-    const { userTitle } = useStore;
-    return { userTitle };
+    const { store } = useStore;
+    return { store };
   },
 };
 </script>
