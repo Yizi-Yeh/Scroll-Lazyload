@@ -1,11 +1,13 @@
 <template>
   <div id="repos">
-    <div class="card" v-for="item in 10" :key="item">
-      <h1>Title</h1>
-      <a class="url" href="javascript:;">http://localhost:8081/</a>
+    <div class="card" v-for="item in store.repoList" :key="item.id">
+      <h1>{{ item.name }}</h1>
+      <a class="url" :href="item.html_url" target="_blank">{{
+        item.html_url
+      }}</a>
       <div class="star">
         <img src="../assets/star.svg" alt="" />
-        <p>10</p>
+        <p>{{ item.stargazers_count }}</p>
       </div>
     </div>
     <h1 v-show="!isLoad">Loading...</h1>
@@ -13,25 +15,26 @@
 </template>
 
 <script>
-import { onMounted, watch } from "@vue/runtime-core";
+import { onMounted, watch, inject } from "@vue/runtime-core";
 import { useScrollDown } from "../composition-api/useScrollDown";
 import { useFetchData } from "../composition-api/useFetchData.js";
 export default {
   setup() {
     const { isDown } = useScrollDown();
     const { init, isLoad, next } = useFetchData();
-
+    const useStore = inject("mapStore");
+    const { store } = useStore;
     watch(isDown, (newValue) => {
       if (!newValue) return;
-      next()
+      next();
       console.log(newValue);
     });
 
-    onMounted(()=>{
-        init()
-    })
+    onMounted(() => {
+      init();
+    });
 
-    return {isLoad};
+    return { isLoad, store };
   },
 };
 </script>
