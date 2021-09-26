@@ -1,18 +1,25 @@
 <template>
   <div id="title-bar">
-    <img class="user-photo" src="../assets/notFound.jpg" alt="" />
-    <h1>{{store.userTitle}}</h1>
+    <img class="user-photo" :src="store.avatar_url" alt="" />
+    <h1>{{ store.login }}</h1>
   </div>
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, onMounted, ref } from "vue";
+import { useFetchUserData } from "../composition-api/useFetchUserData";
 export default {
   setup() {
     const useStore = inject("mapStore");
-    console.log(useStore);
     const { store } = useStore;
-    return { store };
+    const { isLoad, fetch } = useFetchUserData();
+    const userName = ref("Yizi-Yeh");
+
+    onMounted(()=>{
+        fetch(userName.value)
+    })
+
+    return { store, isLoad};
   },
 };
 </script>
@@ -25,7 +32,7 @@ export default {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 10px solid red;
+    border: 10px solid rgb(148, 98, 98);
     margin-bottom: 30px;
   }
   h1 {
